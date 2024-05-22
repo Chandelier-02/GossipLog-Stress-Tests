@@ -1,0 +1,32 @@
+{
+  "name": "gossiplogtests",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "DEBUG=* vite-node src/gossiplog-service.ts > output.log 2>&1",
+    "build": "tsc && vite-node build",
+    "preview": "vite-node preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "@canvas-js/gossiplog": "^0.8.29",
+    "@chainsafe/libp2p-gossipsub": "^11.0.1",
+    "@chainsafe/libp2p-yamux": "^6.0.2",
+    "@libp2p/bootstrap": "^10.0.24",
+    "@libp2p/identify": "^2.0.2",
+    "@libp2p/interface": "^1.4.0",
+    "@libp2p/mplex": "^10.0.24",
+    "@libp2p/perf": "^3.0.24",
+    "@libp2p/ping": "^1.0.19",
+    "@libp2p/plaintext": "^1.0.24",
+    "@libp2p/tcp": "^9.0.26",
+    "@multiformats/multiaddr": "^12.2.3",
+    "libp2p": "^1.2.4",
+    "path": "^0.12.7",
+    "rimraf": "^5.0.7"
+  }
+}
