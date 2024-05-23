@@ -18,10 +18,24 @@ import logger from 'debug';
 import { bootstrap } from "@libp2p/bootstrap";
 import pDefer, { DeferredPromise } from "p-defer"
 import { Message, Signature } from "@canvas-js/interfaces"
-import { GossipLogEvents } from "@canvas-js/gossiplog";
+import { GossipLogEvents, ReadWriteTransaction } from "@canvas-js/gossiplog";
 import { mplex } from "@libp2p/mplex";
 
-const TOPIC = 'test.gossiplog'
+// How does it scale as it runs for a long period of time?
+// Avoid crash scenarios. Then, we sync nodes, disconnect, create 1000 events. See if there is 
+//  any time difference between each disconnect sync interval. See if it slows down when the database
+//  goes down
+// Also need to track the data size per tests to see how much the data size changes with different numbers of entries
+
+// Check the storage overhead. Use JSON.stringify to get the length and then compare their raw data.
+// How long does it take to sync 10s of entries when it has 100s of thousands of entries already?
+
+// Simulated time tests
+
+// Definitely look up at the startup
+
+// Will I have even more issues if there are more nodes that I need to sync with?
+
 
 export type NetworkInit = Record<string, { port: number; peers: string[]; init?: GossipLogServiceInit }>
 
@@ -224,7 +238,7 @@ async function runGossipLogTest(numberOfConnectedAppendOps: number, numberOfDisc
         missingObjectsLog1.add(object.id);
         await network['b'].services.gossiplog.append(TOPIC, object);
       }
-      await delay(10);
+      //await delay(10);
       if (i % 1000 === 0) {
         console.log(`Appended ${i} entries`);
       }
@@ -271,7 +285,7 @@ async function runGossipLogTest(numberOfConnectedAppendOps: number, numberOfDisc
   // await rimraf(path.join(__dirname, 'test-data', '2'))
 }
 
-runGossipLogTest(5_000, 10_000).then(() => process.exit(0));
+runGossipLogTest(5_000, 25_000).then(() => process.exit(0));
 
 function waitForCondition(conditionFn: () => boolean, checkInterval = 10) {
   return new Promise<void>((resolve, reject) => {
@@ -313,4 +327,60 @@ async function unblockPortConnection(port: number) {
 
 async function delay(ms: number): Promise<void> {
   return new Promise<void>((resolve) => setTimeout(() => resolve(), ms));
+}
+
+const DATABASE_NUM = 3;
+const MAP_SIZE = 256_000_000;
+const TOPIC = 'test-topic';
+const LIBP2P_CONFIG = (peerId: PeerId, address: string, bootstrapList: string[]) => {
+  return {
+    peerId: peerId,
+    start: false,
+    addresses: { listen: [address] },
+    transports: [tcp()],
+    connectionEncryption: [plaintext()],
+    streamMuxers: [yamux()],
+    peerDiscovery: bootstrapList.length > 0 ? [bootstrap({ list: bootstrapList, timeout: 0 })] : [],
+    connectionManager: { minConnections: bootstrapList.length, maxConnections: bootstrapList.length + 1, autoDialInterval: 1000 },
+
+    services: {
+      identify: identify({ protocolPrefix: "canvas" }),
+
+      pubsub: gossipsub({
+        emitSelf: false,
+        fallbackToFloodsub: false,
+        allowPublishToZeroPeers: true,
+        globalSignaturePolicy: "StrictSign",
+      }),
+
+      gossiplog: gossiplog({ sync: true }),
+    }
+  }
+}
+
+export class GossipLogServiceProcess {
+  #name: string;
+  #path: string;
+  #gossipLog: GossipLog<ReplicatedObject, void>;
+  #libp2p: Libp2p<ServiceMap>;
+  #missingEntries: Set<string>;
+
+  public async create(name: string, path: string, peerId: PeerId, port: number, bootstrapList: string[], missingEntries: string): Promise<GossipLogServiceProcess> {
+    const libp2p = await createLibp2p(LIBP2P_CONFIG(peerId, getAddress(port), bootstrapList))
+    const env = new Environment(path, { databases: DATABASE_NUM, mapSize: MAP_SIZE });
+    // @ts-ignore
+    const gossipLog = new GossipLog(env, { topic: TOPIC, apply: () => {}, validate: validateReplicatedObject });
+    await gossipLog.write((_: ReadWriteTransaction) => {});
+
+    return new GossipLogServiceProcess(name, path, gossipLog, libp2p);
+  }
+
+  private constructor(name: string, path: string, gossipLog: GossipLog<ReplicatedObject, void>, libp2p: Libp2p<ServiceMap>) {
+    this.#name = name;
+    this.#path = path;
+    this.#missingEntries = new Set<string>();
+
+    this.#gossipLog = gossipLog;
+    this.#libp2p = libp2p;
+  }
 }
