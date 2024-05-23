@@ -19,6 +19,7 @@ import { bootstrap } from "@libp2p/bootstrap";
 import pDefer, { DeferredPromise } from "p-defer"
 import { Message, Signature } from "@canvas-js/interfaces"
 import { GossipLogEvents } from "@canvas-js/gossiplog";
+import { mplex } from "@libp2p/mplex";
 
 const TOPIC = 'test.gossiplog'
 
@@ -64,7 +65,7 @@ export async function createNetwork(
 				addresses: { listen: [address] },
 				transports: [tcp()],
 				connectionEncryption: [plaintext()],
-				streamMuxers: [yamux()],
+				streamMuxers: [mplex()],
 				peerDiscovery: bootstrapList.length > 0 ? [bootstrap({ list: bootstrapList, timeout: 0 })] : [],
 				connectionManager: { minConnections, maxConnections, autoDialInterval: 1000 },
 
@@ -211,8 +212,7 @@ async function runGossipLogTest(numberOfConnectedAppendOps: number, numberOfDisc
 
   await Promise.all([network.a.services.gossiplog.subscribe(gossipLog1), network.b.services.gossiplog.subscribe(gossipLog2)]);
 
-  let numberOfEntriesCreated = 0;
-  for (let i = 0; i < numberOfConnectedAppendOps; i++) {
+  for (let i = 1; i < numberOfConnectedAppendOps + 1; i++) {
     const object = createReplicatedObject();
 
     // Randomly create objects between the nodes.
@@ -225,21 +225,26 @@ async function runGossipLogTest(numberOfConnectedAppendOps: number, numberOfDisc
         await network['b'].services.gossiplog.append(TOPIC, object);
       }
       await delay(10);
-      numberOfEntriesCreated++;
+      if (i % 1000 === 0) {
+        console.log(`Appended ${i} entries`);
+      }
     } catch (error) {
       console.error((error as Error).stack);
-      console.log(`Got max entries: ${numberOfEntriesCreated}`)
+      console.log(`Got max entries: ${i}`)
     }
   }
+
+  console.log(`Finished creating all the entries. Waiting for replication of entries to finish.`)
 
   // Wait for the objects to be replicated between the nodes
   await waitForCondition(() => missingObjectsLog1.size + missingObjectsLog2.size === 0);
 
+  console.log(`Blocking port connections.`)
   // // Now, we will disconnect the nodes and start creating a ton of messages that will need to be synced later
   await blockPortConnection(9990);
   await blockPortConnection(9991);
 
-  for (let i = 0; i < numberOfDisconnectedAppendOps; i++) {
+  for (let i = 1; i < numberOfDisconnectedAppendOps + 1; i++) {
     const object = createReplicatedObject();
 
     missingObjectsLog2.add(object.id);
@@ -247,11 +252,17 @@ async function runGossipLogTest(numberOfConnectedAppendOps: number, numberOfDisc
     await network['a'].services.gossiplog.append(TOPIC, object);
 
     await delay(10);
+    
+    if (i % 1000 === 0) {
+      console.log(`Created ${i} objects - after disconnect`)
+    }
   }
 
+  console.log(`Unblocking ports`)
   await Promise.all([unblockPortConnection(9990), unblockPortConnection(9991)]);
 
   const start = performance.now();
+  console.log(`Waiting for trees to merge diffs`)
   await waitForCondition(() => missingObjectsLog1.size + missingObjectsLog2.size === 0);
   const end = performance.now();
   console.log(`Catching nodes back up took ${(end - start)} milliseconds`);
@@ -260,7 +271,7 @@ async function runGossipLogTest(numberOfConnectedAppendOps: number, numberOfDisc
   // await rimraf(path.join(__dirname, 'test-data', '2'))
 }
 
-runGossipLogTest(100_000, 50_000).then(() => process.exit(0));
+runGossipLogTest(5_000, 10_000).then(() => process.exit(0));
 
 function waitForCondition(conditionFn: () => boolean, checkInterval = 10) {
   return new Promise<void>((resolve, reject) => {
