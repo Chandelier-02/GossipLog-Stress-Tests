@@ -12,9 +12,10 @@ export type StartGossipSubProcessRequest = {
   peerIdString: string;
   peerIdPrivatekey: string; // Base64 encoded string
   port: number;
-  nodeToConnectToPeerIdStrings: string[];
+  bootstrapList: string[];
   gossipLogStoragePath: string;
   missingEntryIds: string[]; // GossipLog entry ids, not to be confused with ReplicatedObject ids
+  logOutputPath: string;
 };
 
 export type CreateEntriesRequest = {

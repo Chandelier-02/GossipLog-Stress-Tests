@@ -24,15 +24,13 @@ describe.sequential(
     let deleteTestDataDirectory: boolean = false;
     let deletePerformanceDataDirectory: boolean = false;
 
-    const testDataDirectoryPath = path.join(__dirname, '../', 'test-data');
-    const performanceDataDirectoryPath = path.join(__dirname, '../', 'performance-data');
+    const testDataDirectoryPath = path.join(__dirname, '../test', 'test-data');
+    const performanceDataDirectoryPath = path.join(__dirname, '../test', 'performance-data');
     beforeEach(async () => {
+      if (fs.existsSync(testDataDirectoryPath)) {
+        await rimraf(testDataDirectoryPath);
+      }
       gossiplogProcessManager = new GossipLogProcessManager();
-      const config: NetworkConfig = [
-        { name: 'a', peerId: await createEd25519PeerId(), port: 9990 },
-        { name: 'b', peerId: await createEd25519PeerId(), port: 9991 },
-      ];
-      await gossiplogProcessManager.init(config);
     }, 20_000);
 
     afterEach(async () => {
@@ -44,11 +42,50 @@ describe.sequential(
     });
 
     it.sequential(
+      'Should fail to replicate when catching up 10s of thousands of entries',
+      async () => {
+        const config: NetworkConfig = [
+          { name: 'a', peerId: await createEd25519PeerId(), port: 9990 },
+          { name: 'b', peerId: await createEd25519PeerId(), port: 9991 },
+        ];
+        gossiplogProcessManager.logOutputBasePath = path.join(__dirname, 'logs', 'catch-up-entries-test');
+        await gossiplogProcessManager.init(config);
+
+        await gossiplogProcessManager.startProcess('a');
+        await gossiplogProcessManager.startProcess('b');
+
+        await gossiplogProcessManager.createEntries('a', 500);
+        await gossiplogProcessManager.waitForReplicationToFinish('b');
+
+        console.log('Created initial entries');
+
+        await gossiplogProcessManager.blockPortConnection('a');
+        await gossiplogProcessManager.createEntries('a', 20_000);
+
+        console.log('Created 20_000 entries while disconnected');
+
+        await gossiplogProcessManager.unblockPortConnection('a');
+        console.log('Reconnected...trying to replicate entries');
+
+        await gossiplogProcessManager.waitForReplicationToFinish('b');
+        console.log('Replicated entries');
+      },
+      Infinity
+    );
+
+    it.sequential(
       'Should track time taken to run a node for a long time with many entries',
       async () => {
+        const config: NetworkConfig = [
+          { name: 'a', peerId: await createEd25519PeerId(), port: 9990 },
+          { name: 'b', peerId: await createEd25519PeerId(), port: 9991 },
+        ];
+        gossiplogProcessManager.logOutputBasePath = path.join(__dirname, 'logs', 'long-run-data');
+        await gossiplogProcessManager.init(config);
+
         const connectedEntryInterval = 3000;
         const disconnectedEntryInterval = 1000;
-        const totalEntriesToCreate = 200_000;
+        const totalEntriesToCreate = 1_000_000;
 
         const numberOfEntriesToTimeTakenToSync: [number, number][] = [];
         await gossiplogProcessManager.startProcess('a');

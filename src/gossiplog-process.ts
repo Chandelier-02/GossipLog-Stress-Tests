@@ -22,6 +22,7 @@ import {
 } from './types';
 import { peerIdFromString } from '@libp2p/peer-id';
 import fs from 'fs';
+import PQueue from 'p-queue';
 
 const getAddress = (port: number) => `/ip4/127.0.0.1/tcp/${port}`;
 
@@ -78,7 +79,7 @@ export class GossipLogServiceProcess {
 
   public static async create(
     name: string,
-    path: string,
+    gossiplogPath: string,
     peerId: PeerId,
     port: number,
     bootstrapList: string[],
@@ -87,11 +88,11 @@ export class GossipLogServiceProcess {
     const libp2p = await createLibp2p(LIBP2P_CONFIG(peerId, getAddress(port), bootstrapList));
     await libp2p.start();
 
-    if (!fs.existsSync(path)) {
-      fs.mkdirSync(path, { recursive: true });
+    if (!fs.existsSync(gossiplogPath)) {
+      fs.mkdirSync(gossiplogPath, { recursive: true });
     }
 
-    const env = new Environment(path, { databases: DATABASE_NUM, mapSize: MAP_SIZE });
+    const env = new Environment(gossiplogPath, { databases: DATABASE_NUM, mapSize: MAP_SIZE });
     // @ts-ignore
     const gossipLog = new GossipLog(env, { topic: TOPIC, apply: () => {}, validate: validateReplicatedObject });
     await gossipLog.write((_: ReadWriteTransaction) => {});
@@ -116,7 +117,7 @@ export class GossipLogServiceProcess {
   public async *createEntries(entries: ReplicatedObject[]): AsyncGenerator<string> {
     for (const entry of entries) {
       const result = await this.#libp2p.services.gossiplog.append(TOPIC, entry);
-      await delay(10);
+      await delay(5);
       yield result.id;
     }
   }
@@ -129,26 +130,34 @@ export class GossipLogServiceProcess {
     return new Promise<number>(resolve => {
       if (this.#missingEntries.size === 0) {
         resolve(0);
+        return;
       }
 
       const start = performance.now();
+      const searchingForEntries = new Set<string>();
+      const readQueue = new PQueue({ concurrency: 100 });
+
       const interval = setInterval(() => {
         if (this.#missingEntries.size === 0) {
           const end = performance.now();
           clearInterval(interval);
           resolve(end - start);
+          return;
         }
 
-        const missingEntriesArray = Array.from(this.#missingEntries);
-        const searchingForEntriesArray = [];
         for (const missingId of this.#missingEntries) {
-          this.#gossipLog.has(missingId).then(hasId => {
+          if (!searchingForEntries.has(missingId)) {
+            searchingForEntries.add(missingId);
+          }
+          readQueue.add(async () => {
+            const hasId = await this.#gossipLog.has(missingId);
             if (hasId) {
               this.#missingEntries.delete(missingId);
+              searchingForEntries.delete(missingId);
             }
           });
         }
-      }, 500);
+      }, 50);
     });
   }
 }
@@ -181,9 +190,6 @@ process.on('message', async (message: RequestTypes) => {
         writable: true,
         value: new Uint8Array(privateKeyBuffer.buffer, privateKeyBuffer.byteOffset, privateKeyBuffer.byteLength),
       });
-      const bootstrapList = message.nodeToConnectToPeerIdStrings.map(
-        peerIdString => `${getAddress(message.port)}/p2p/${peerIdString}`
-      );
 
       const start = performance.now();
       gossipLogServiceProcess = await GossipLogServiceProcess.create(
@@ -191,7 +197,7 @@ process.on('message', async (message: RequestTypes) => {
         message.gossipLogStoragePath,
         peerId,
         message.port,
-        bootstrapList,
+        message.bootstrapList,
         message.missingEntryIds
       );
       await gossipLogServiceProcess.waitForReplicationToFinish();
@@ -219,6 +225,16 @@ process.on('message', async (message: RequestTypes) => {
           ipcSend(addMissingIdReq);
           missingIds = [];
         }
+
+        // Handle any remaining entries
+        if (missingIds.length > 0) {
+          const addMissingIdReq: AddGossipLogIdsToMissingIdsRequest = {
+            type: 'add-missing-entry-ids-request',
+            missingEntryIds: missingIds,
+            fromNode: gossipLogServiceProcess.name,
+          };
+          ipcSend(addMissingIdReq);
+        }
       }
       const end = performance.now();
       const createEntriesResponse: CreateEntriesResponse = {
@@ -240,6 +256,7 @@ process.on('message', async (message: RequestTypes) => {
       ipcSend({
         type: 'wait-for-replication-to-finish',
         timeTakenForReplicationToFinish: timeTaken,
+        responseId: message.requestId,
       } as WaitForReplicationToFinishResponse);
     }
   }

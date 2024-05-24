@@ -13,6 +13,7 @@ import {
   WaitForReplicationToFinishResponse,
 } from './types';
 import { promisify } from 'util';
+import fs from 'fs';
 
 type ChildGossipLogProcess = {
   name: string;
@@ -31,9 +32,12 @@ function createReplicatedObject(): ReplicatedObject {
   return { id: crypto.randomUUID() };
 }
 
+const getAddress = (port: number) => `/ip4/127.0.0.1/tcp/${port}`;
+
 export class GossipLogProcessManager {
   #gossipLogProcesses: Map<string, ChildGossipLogProcess>;
   #gossipSubBasePath = path.join(__dirname, '../test', 'test-data');
+  logOutputBasePath = path.join(__dirname, '../test', 'logs');
   messageHandlers: Map<string, Function> = new Map();
 
   constructor() {
@@ -73,14 +77,25 @@ export class GossipLogProcessManager {
   }
 
   async #createProcess(name: string): Promise<ChildProcess> {
+    if (!fs.existsSync(this.logOutputBasePath)) {
+      fs.mkdirSync(this.logOutputBasePath, { recursive: true });
+    }
+    const logFile = path.join(this.logOutputBasePath, `${name}.log`);
+    const logStream = fs.createWriteStream(logFile, { flags: 'a' });
+
     return new Promise<ChildProcess>(resolve => {
       const childProcess = spawn(
         'node',
         ['--loader', 'ts-node/esm', path.join(__dirname, '../src', 'gossiplog-process.ts')],
         {
           stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
+          env: { ...process.env, DEBUG: '*' },
         }
       );
+
+      childProcess.stdout?.pipe(logStream);
+      childProcess.stderr?.pipe(logStream);
+
       childProcess.on('exit', () => {
         console.log(`Child process with name ${name} exited`);
       });
@@ -103,6 +118,7 @@ export class GossipLogProcessManager {
     return new Promise<number>(resolve => {
       const gossipSubProcess = this.#gossipLogProcesses.get(name)!;
       const requestId = crypto.randomUUID();
+
       const startProcessRequest: StartGossipSubProcessRequest = {
         name,
         gossipLogStoragePath: path.join(this.#gossipSubBasePath, name),
@@ -110,9 +126,12 @@ export class GossipLogProcessManager {
         peerIdString: gossipSubProcess.peerId.toString(),
         peerIdPrivatekey: Buffer.from(gossipSubProcess.peerId.privateKey!).toString('base64'),
         missingEntryIds,
-        nodeToConnectToPeerIdStrings: Array.from(this.#gossipLogProcesses.keys()).filter(key => key !== name),
+        bootstrapList: Array.from(this.#gossipLogProcesses.entries())
+          .filter(([key, _]) => key !== name)
+          .map(([_, value]) => `${getAddress(value.port)}/p2p/${value.peerId.toString()}`),
         type: 'start-request',
         requestId,
+        logOutputPath: path.join(this.logOutputBasePath),
       };
       const handler = (message: StartGossipSubProcessResponse) => {
         this.#unregisterHandler(requestId);

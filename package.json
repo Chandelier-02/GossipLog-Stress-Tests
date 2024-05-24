@@ -28,6 +28,7 @@
     "@libp2p/tcp": "^9.0.26",
     "@multiformats/multiaddr": "^12.2.3",
     "libp2p": "^1.2.4",
+    "p-queue": "^8.0.1",
     "path": "^0.12.7",
     "rimraf": "^5.0.7",
     "vitest": "^1.6.0"
