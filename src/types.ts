@@ -23,9 +23,9 @@ export type CreateEntriesRequest = {
   entries: ReplicatedObject[]; // JSON encoded ReplicatedObject objects
 };
 
-export type AddGossipLogIdToMissingIdsRequest = {
-  type: 'add-missing-entry-id-request';
-  missingEntryId: string; // GossipLog entry id
+export type AddGossipLogIdsToMissingIdsRequest = {
+  type: 'add-missing-entry-ids-request';
+  missingEntryIds: string[]; // GossipLog entry id
   fromNode: string;
 };
 
@@ -55,7 +55,7 @@ export type WaitForReplicationToFinishResponse = {
 export type RequestTypes =
   | StartGossipSubProcessRequest
   | CreateEntriesRequest
-  | AddGossipLogIdToMissingIdsRequest
+  | AddGossipLogIdsToMissingIdsRequest
   | WaitForReplicationToFinishRequest;
 
 export type ResponseTypes =

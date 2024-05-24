@@ -11,7 +11,7 @@ import { tcp } from '@libp2p/tcp';
 import { Libp2p, createLibp2p } from 'libp2p';
 import { Environment } from '@canvas-js/okra-node';
 import {
-  AddGossipLogIdToMissingIdsRequest,
+  AddGossipLogIdsToMissingIdsRequest,
   CreateEntriesResponse,
   ProcessReadyResponse,
   ReplicatedObject,
@@ -139,6 +139,8 @@ export class GossipLogServiceProcess {
           resolve(end - start);
         }
 
+        const missingEntriesArray = Array.from(this.#missingEntries);
+        const searchingForEntriesArray = [];
         for (const missingId of this.#missingEntries) {
           this.#gossipLog.has(missingId).then(hasId => {
             if (hasId) {
@@ -146,7 +148,7 @@ export class GossipLogServiceProcess {
             }
           });
         }
-      }, 50);
+      }, 500);
     });
   }
 }
@@ -159,6 +161,14 @@ const readyResponse: ProcessReadyResponse = {
   type: 'process-ready',
 };
 ipcSend(readyResponse);
+
+process.on('uncaughtException', error => {
+  console.error(error.message);
+  console.error(error.stack);
+});
+process.on('unhandledRejection', reason => {
+  console.error(reason);
+});
 
 let gossipLogServiceProcess!: GossipLogServiceProcess;
 process.on('message', async (message: RequestTypes) => {
@@ -197,13 +207,18 @@ process.on('message', async (message: RequestTypes) => {
     }
     case 'create-entries-request': {
       const start = performance.now();
+      let missingIds = []; // Store batches of 10 ids at a time
       for await (const id of gossipLogServiceProcess.createEntries(message.entries)) {
-        const addMissingIdReq: AddGossipLogIdToMissingIdsRequest = {
-          type: 'add-missing-entry-id-request',
-          missingEntryId: id,
-          fromNode: gossipLogServiceProcess.name,
-        };
-        ipcSend(addMissingIdReq);
+        missingIds.push(id);
+        if (missingIds.length % 100 === 0) {
+          const addMissingIdReq: AddGossipLogIdsToMissingIdsRequest = {
+            type: 'add-missing-entry-ids-request',
+            missingEntryIds: missingIds,
+            fromNode: gossipLogServiceProcess.name,
+          };
+          ipcSend(addMissingIdReq);
+          missingIds = [];
+        }
       }
       const end = performance.now();
       const createEntriesResponse: CreateEntriesResponse = {
@@ -214,8 +229,10 @@ process.on('message', async (message: RequestTypes) => {
       ipcSend(createEntriesResponse);
       break;
     }
-    case 'add-missing-entry-id-request': {
-      gossipLogServiceProcess.addMissingId(message.missingEntryId);
+    case 'add-missing-entry-ids-request': {
+      for (const missingId of message.missingEntryIds) {
+        gossipLogServiceProcess.addMissingId(missingId);
+      }
       break;
     }
     case 'wait-for-replication-to-finish': {

@@ -2,7 +2,7 @@ import { PeerId } from '@libp2p/interface';
 import { ChildProcess, spawn, exec } from 'child_process';
 import path from 'path';
 import {
-  AddGossipLogIdToMissingIdsRequest,
+  AddGossipLogIdsToMissingIdsRequest,
   CreateEntriesRequest,
   CreateEntriesResponse,
   ReplicatedObject,
@@ -54,7 +54,7 @@ export class GossipLogProcessManager {
     this.messageHandlers.delete(requestId);
   }
 
-  async #handleMessage(message: ResponseTypes | AddGossipLogIdToMissingIdsRequest) {
+  async #handleMessage(message: ResponseTypes | AddGossipLogIdsToMissingIdsRequest) {
     if ('fromNode' in message) {
       this.messageHandlers.get('missing-id-relayer')!(message);
       return;
@@ -64,7 +64,7 @@ export class GossipLogProcessManager {
     }
   }
 
-  #handleMissingIdRelayer(message: AddGossipLogIdToMissingIdsRequest) {
+  #handleMissingIdRelayer(message: AddGossipLogIdsToMissingIdsRequest) {
     for (const [name, process] of this.#gossipLogProcesses.entries()) {
       if (name !== message.fromNode) {
         process.process.send(message);

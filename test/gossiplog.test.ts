@@ -21,9 +21,11 @@ describe.sequential(
   'GossipLog stress tests',
   async () => {
     let gossiplogProcessManager: GossipLogProcessManager;
-    let deleteDirectory: boolean = false;
+    let deleteTestDataDirectory: boolean = false;
+    let deletePerformanceDataDirectory: boolean = false;
 
-    const directoryPath = path.join(__dirname, '../', 'test-data');
+    const testDataDirectoryPath = path.join(__dirname, '../', 'test-data');
+    const performanceDataDirectoryPath = path.join(__dirname, '../', 'performance-data');
     beforeEach(async () => {
       gossiplogProcessManager = new GossipLogProcessManager();
       const config: NetworkConfig = [
@@ -34,9 +36,9 @@ describe.sequential(
     }, 20_000);
 
     afterEach(async () => {
-      if (deleteDirectory) {
-        if (fs.existsSync(directoryPath)) {
-          await rimraf(directoryPath);
+      if (deleteTestDataDirectory) {
+        if (fs.existsSync(testDataDirectoryPath)) {
+          await rimraf(testDataDirectoryPath);
         }
       }
     });
@@ -48,15 +50,30 @@ describe.sequential(
         const disconnectedEntryInterval = 1000;
         const totalEntriesToCreate = 200_000;
 
+        const numberOfEntriesToTimeTakenToSync: [number, number][] = [];
         await gossiplogProcessManager.startProcess('a');
         await gossiplogProcessManager.startProcess('b');
         for (let i = 0; i < totalEntriesToCreate; i += connectedEntryInterval + disconnectedEntryInterval) {
-          const timeToCreate = await gossiplogProcessManager.createEntries('a', connectedEntryInterval);
-          console.log(timeToCreate);
+          await gossiplogProcessManager.createEntries('a', connectedEntryInterval);
+          console.log(`Created ${i + connectedEntryInterval} entries`);
+          await gossiplogProcessManager.waitForReplicationToFinish('b');
+          console.log(`Replication of created entries finished`);
+          await gossiplogProcessManager.blockPortConnection('a');
+
+          await gossiplogProcessManager.createEntries('a', disconnectedEntryInterval);
+          await gossiplogProcessManager.unblockPortConnection('a');
+          const timeToCatchUp = await gossiplogProcessManager.waitForReplicationToFinish('b');
+          console.log(timeToCatchUp);
+          numberOfEntriesToTimeTakenToSync.push([connectedEntryInterval + disconnectedEntryInterval, timeToCatchUp]);
+        }
+
+        const outFilePath = path.join(performanceDataDirectoryPath, 'long-run-test.json');
+        if (!fs.existsSync(outFilePath)) {
+          fs.appendFileSync(outFilePath, JSON.stringify(numberOfEntriesToTimeTakenToSync));
         }
       },
-      100_000
+      Infinity
     );
   },
-  100_000
+  Infinity
 );
