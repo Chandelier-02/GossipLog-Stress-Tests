@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "DEBUG=* vite-node src/gossiplog-service.ts > output.log 2>&1",
     "build": "tsc && vite-node build",
-    "preview": "vite-node preview"
+    "preview": "vite-node preview",
+    "test": "vitest"
   },
   "devDependencies": {
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   },
