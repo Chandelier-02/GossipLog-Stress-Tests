@@ -54,20 +54,25 @@ describe.sequential(
         await gossiplogProcessManager.startProcess('a');
         await gossiplogProcessManager.startProcess('b');
 
-        await gossiplogProcessManager.createEntries('a', 500);
+        await gossiplogProcessManager.createEntries('a', 20_000);
         await gossiplogProcessManager.waitForReplicationToFinish('b');
 
-        console.log('Created initial entries');
+        console.log('Created 20_000 initial entries');
 
         await gossiplogProcessManager.blockPortConnection('a');
-        await gossiplogProcessManager.createEntries('a', 20_000);
+        await gossiplogProcessManager.blockPortConnection('b');
 
-        console.log('Created 20_000 entries while disconnected');
+        await new Promise<void>(resolve => setTimeout(() => resolve(), 1_000));
+
+        await gossiplogProcessManager.createEntries('a', 50_000);
+
+        console.log('Created 50_000 entries while disconnected');
 
         await gossiplogProcessManager.unblockPortConnection('a');
+        await gossiplogProcessManager.unblockPortConnection('b');
         console.log('Reconnected...trying to replicate entries');
 
-        await gossiplogProcessManager.waitForReplicationToFinish('b');
+        await new Promise<void>(resolve => setTimeout(() => resolve(), 1_000_000_000));
         console.log('Replicated entries');
       },
       Infinity

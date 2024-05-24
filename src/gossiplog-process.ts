@@ -127,38 +127,43 @@ export class GossipLogServiceProcess {
   }
 
   public async waitForReplicationToFinish(): Promise<number> {
-    return new Promise<number>(resolve => {
-      if (this.#missingEntries.size === 0) {
-        resolve(0);
-        return;
-      }
+    if (this.#missingEntries.size === 0) {
+      return 0;
+    }
 
-      const start = performance.now();
-      const searchingForEntries = new Set<string>();
-      const readQueue = new PQueue({ concurrency: 100 });
+    const start = performance.now();
+    const readQueue = new PQueue({ concurrency: 100 });
+    const searchingForEntries = new Set<string>();
 
-      const interval = setInterval(() => {
-        if (this.#missingEntries.size === 0) {
-          const end = performance.now();
-          clearInterval(interval);
-          resolve(end - start);
-          return;
-        }
-
+    const checkMissingEntries = async () => {
+      while (this.#missingEntries.size > 0) {
         for (const missingId of this.#missingEntries) {
           if (!searchingForEntries.has(missingId)) {
             searchingForEntries.add(missingId);
-          }
-          readQueue.add(async () => {
-            const hasId = await this.#gossipLog.has(missingId);
-            if (hasId) {
-              this.#missingEntries.delete(missingId);
+            readQueue.add(async () => {
+              const hasId = await this.#gossipLog.has(missingId);
+              if (hasId) {
+                this.#missingEntries.delete(missingId);
+              }
               searchingForEntries.delete(missingId);
-            }
-          });
+            });
+          }
         }
-      }, 50);
-    });
+
+        await readQueue.onIdle();
+
+        if (this.#missingEntries.size === 0) {
+          break;
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 50));
+      }
+    };
+
+    await checkMissingEntries();
+
+    const end = performance.now();
+    return end - start;
   }
 }
 
