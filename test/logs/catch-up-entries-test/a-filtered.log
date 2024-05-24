@@ -1,0 +1,543 @@
+(node:127846) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("ts-node/esm", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+2024-05-24T18:18:24.833Z libp2p:transports adding transport @libp2p/tcp
+2024-05-24T18:18:24.835Z libp2p libp2p is starting
+2024-05-24T18:18:24.836Z libp2p:connection-manager started
+2024-05-24T18:18:24.836Z libp2p:bootstrap Starting bootstrap node discovery, discovering peers after 0 ms
+2024-05-24T18:18:24.838Z libp2p:gossipsub starting
+2024-05-24T18:18:24.838Z canvas:gossiplog start
+2024-05-24T18:18:24.849Z libp2p:gossipsub:score started
+2024-05-24T18:18:24.850Z libp2p:gossipsub started
+2024-05-24T18:18:24.851Z libp2p:transports creating listener for @libp2p/tcp on /ip4/127.0.0.1/tcp/9991
+2024-05-24T18:18:24.852Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:18:24.853Z canvas:gossiplog afterStart
+2024-05-24T18:18:24.855Z libp2p:connection-manager:auto-dial selected 0/0 peers to dial
+2024-05-24T18:18:24.858Z libp2p:tcp:listener listening on { address: '127.0.0.1', family: 'IPv4', port: 9991 }
+2024-05-24T18:18:24.862Z libp2p libp2p has started
+2024-05-24T18:18:24.911Z canvas:gossiplog subscribing to test-topic
+2024-05-24T18:18:24.912Z canvas:gossiplog:[test-topic]:sync starting sync service
+2024-05-24T18:18:24.913Z libp2p:gossipsub JOIN canvas/test-topic
+2024-05-24T18:18:24.925Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:18:24.927Z libp2p:connection-manager:auto-dial selected 1/1 peers to dial
+2024-05-24T18:18:24.929Z libp2p:connection-manager:auto-dial connecting to a peerStore stored peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.929Z libp2p:connection-manager dial 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.929Z libp2p:connection-manager:dial-queue creating dial target for 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 []
+2024-05-24T18:18:24.930Z libp2p:connection-manager:dial-queue loading multiaddrs for 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.931Z libp2p:connection-manager:dial-queue loaded multiaddrs for 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 [
+  '/ip4/127.0.0.1/tcp/9990/p2p/12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25'
+]
+2024-05-24T18:18:24.932Z libp2p:tcp dialing /ip4/127.0.0.1/tcp/9990/p2p/12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.935Z libp2p:tcp connection opened /ip4/127.0.0.1/tcp/9990/p2p/12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.936Z libp2p:tcp new outbound connection /ip4/127.0.0.1/tcp/9990/p2p/12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.936Z libp2p:tcp:socket starting the outbound connection upgrade
+2024-05-24T18:18:24.936Z libp2p:tcp:socket selecting outbound crypto protocol [ '/plaintext/2.0.0' ]
+2024-05-24T18:18:24.944Z libp2p:tcp:socket encrypting outbound connection to 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 using Plaintext {
+  protocol: '/plaintext/2.0.0',
+  log: [Function],
+  timeout: 1000
+}
+2024-05-24T18:18:24.945Z libp2p:plaintext write pubkey exchange to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.945Z libp2p:plaintext plaintext key exchange completed successfully with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.946Z libp2p:tcp:socket outbound selecting muxer [ '/yamux/1.0.0' ]
+2024-05-24T18:18:24.947Z libp2p:tcp:socket selected /yamux/1.0.0 as muxer protocol
+2024-05-24T18:18:24.947Z libp2p:tcp:socket successfully upgraded outbound connection
+2024-05-24T18:18:24.948Z libp2p:connection-manager:connection-pruner checking max connections limit 1/2
+2024-05-24T18:18:24.949Z libp2p:connection:outbound:82i3wu1716574704948 starting new stream for protocols [ '/canvas/id/1.0.0' ]
+2024-05-24T18:18:24.950Z libp2p:tcp outbound connection /ip4/127.0.0.1/tcp/9990/p2p/12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 upgraded
+2024-05-24T18:18:24.950Z libp2p:connection-manager:dial-queue dial to /ip4/127.0.0.1/tcp/9990/p2p/12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 succeeded
+2024-05-24T18:18:24.954Z libp2p:connection:outbound:82i3wu1716574704948 incoming stream opened on /canvas/id/1.0.0
+2024-05-24T18:18:24.972Z libp2p:yamux frame for missing stream id=2
+2024-05-24T18:18:24.972Z libp2p:yamux frame for missing stream id=2
+2024-05-24T18:18:24.973Z libp2p:yamux:outbound:1 selected protocol /canvas/id/1.0.0
+2024-05-24T18:18:24.979Z libp2p:yamux frame for missing stream id=2
+2024-05-24T18:18:24.980Z libp2p:yamux frame for missing stream id=2
+2024-05-24T18:18:24.983Z libp2p:identify identify completed for peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 and protocols [ '/canvas/id/1.0.0', '/gossiplog/sync/v1/test-topic', '/meshsub/1.0.0', '/meshsub/1.1.0' ]
+2024-05-24T18:18:24.983Z libp2p:identify our observed address is /ip4/127.0.0.1/tcp/54384/p2p/12D3KooWKUs484CWHXcMtkF389DZvbKEpesjwSQhTqcC3mVCojKZ
+2024-05-24T18:18:24.983Z libp2p:identify storing our observed address /ip4/127.0.0.1/tcp/54384/p2p/12D3KooWKUs484CWHXcMtkF389DZvbKEpesjwSQhTqcC3mVCojKZ
+2024-05-24T18:18:24.984Z libp2p:identify received identify from 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.984Z libp2p:identify received signedPeerRecord from 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.986Z libp2p:identify patching 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 with {
+  addresses: [
+    {
+      isCertified: true,
+      multiaddr: Multiaddr(/ip4/127.0.0.1/tcp/9990)
+    }
+  ],
+  protocols: [
+    '/canvas/id/1.0.0',
+    '/gossiplog/sync/v1/test-topic',
+    '/meshsub/1.0.0',
+    '/meshsub/1.1.0'
+  ],
+  publicKey: <Buffer 08 01 12 20 90 cb de b2 af 66 df 25 ba 40 9c e9 f2 da d0 43 78 b9 9b ab c6 d6 b0 1b a6 ed f9 4d 0a 2f 3f 3e>,
+  metadata: Map(0) {},
+  peerRecordEnvelope: <Buffer 0a 24 08 01 12 20 90 cb de b2 af 66 df 25 ba 40 9c e9 f2 da d0 43 78 b9 9b ab c6 d6 b0 1b a6 ed f9 4d 0a 2f 3f 3e 12 02 03 01 1a 3b 0a 26 00 24 08 01 ... 119 more bytes>
+}
+2024-05-24T18:18:24.987Z libp2p:identify merging 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 metadata {
+  AgentVersion: Uint8Array(31) [
+    108, 105,  98, 112,  50, 112,  47,  49,
+     46,  54,  46,  48,  32,  85, 115, 101,
+    114,  65, 103, 101, 110, 116,  61, 118,
+     50,  48,  46,  49,  50,  46,  50
+  ],
+  ProtocolVersion: Uint8Array(12) [
+     99, 97, 110, 118, 97,
+    115, 47,  48,  46, 49,
+     46, 48
+  ]
+}
+2024-05-24T18:18:24.989Z canvas:gossiplog:[test-topic]:sync connected to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.989Z canvas:gossiplog:[test-topic]:sync waiting an initial 228ms
+2024-05-24T18:18:24.990Z libp2p:gossipsub new peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.991Z libp2p:connection:outbound:82i3wu1716574704948 starting new stream for protocols [ '/meshsub/1.1.0', '/meshsub/1.0.0' ]
+2024-05-24T18:18:24.991Z libp2p:yamux:outbound:3 no abort signal was passed while trying to negotiate protocols [ '/meshsub/1.1.0', '/meshsub/1.0.0' ] falling back to default timeout
+2024-05-24T18:18:24.992Z libp2p:yamux frame for missing stream id=1
+2024-05-24T18:18:24.994Z libp2p:connection:outbound:82i3wu1716574704948 incoming stream opened on /gossiplog/sync/v1/test-topic
+2024-05-24T18:18:24.994Z libp2p:connection:outbound:82i3wu1716574704948 incoming stream opened on /meshsub/1.1.0
+2024-05-24T18:18:24.995Z canvas:gossiplog:[test-topic]:sync opened incoming stream 4 from peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.997Z libp2p:gossipsub create inbound stream 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.998Z libp2p:yamux:outbound:3 selected protocol /meshsub/1.1.0
+2024-05-24T18:18:24.999Z libp2p:gossipsub create outbound stream 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:24.999Z libp2p:gossipsub send subscriptions to 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:25.004Z libp2p:gossipsub subscription update from 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 topic canvas/test-topic
+2024-05-24T18:18:25.012Z canvas:gossiplog:[test-topic]:sync closed incoming stream 4 from peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:25.026Z canvas:gossiplog:[test-topic] missing parent 08092739bkjta9765r8mmm4ujblcvqjf
+2024-05-24T18:18:25.026Z canvas:gossiplog:[test-topic] missing 1/1 parents
+2024-05-24T18:18:25.221Z canvas:gossiplog:[test-topic]:sync dialing 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25:
+2024-05-24T18:18:25.221Z canvas:gossiplog:[test-topic]:sync opening outgoing stream on connection 82i3wu1716574704948
+2024-05-24T18:18:25.221Z libp2p:connection:outbound:82i3wu1716574704948 starting new stream for protocols [ '/gossiplog/sync/v1/test-topic' ]
+2024-05-24T18:18:25.222Z libp2p:yamux:outbound:5 no abort signal was passed while trying to negotiate protocols [ '/gossiplog/sync/v1/test-topic' ] falling back to default timeout
+2024-05-24T18:18:25.230Z libp2p:yamux:outbound:5 selected protocol /gossiplog/sync/v1/test-topic
+2024-05-24T18:18:25.231Z canvas:gossiplog:[test-topic]:sync opened outgoing stream 5 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:25.232Z canvas:gossiplog:[test-topic]:sync initiating sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:25.237Z canvas:gossiplog:[test-topic]:driver source root: level 1, hash 742df96c2c59f2bc9120e2ab3cde7bfe
+2024-05-24T18:18:25.237Z canvas:gossiplog:[test-topic]:driver target root: level 1, hash 59dc0bb66be90b514148dc24a3578655
+2024-05-24T18:18:25.250Z canvas:gossiplog:mempool observing 08092739bkjta9765r8mmm4ujblcvqjf with 1 children Set(1) { '0d6su7dv8cu6qeaugschg4gos2purm37' }
+2024-05-24T18:18:25.252Z canvas:gossiplog:[test-topic]:sync finished sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25, got root hash 742df96c2c59f2bc9120e2ab3cde7bfe (2 messages)
+2024-05-24T18:18:25.252Z canvas:gossiplog:[test-topic]:sync closed outgoing stream 5 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:18:25.865Z libp2p:gossipsub GRAFT: Add mesh link from 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 in canvas/test-topic
+2024-05-24T18:26:24.959Z libp2p:tcp:socket 127.0.0.1:9990 socket read timeout
+2024-05-24T18:26:24.961Z libp2p:tcp socket error CodeError: Socket read timeout
+    at Socket.<anonymous> (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@libp2p/tcp/dist/src/socket-to-conn.js:47:19)
+    at Object.onceWrapper (node:events:632:28)
+    at Socket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:589:8)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7) {
+  code: 'ERR_SOCKET_READ_TIMEOUT',
+  props: {}
+}
+2024-05-24T18:26:24.962Z libp2p:yamux:error internal error in sink CodeError: Socket read timeout
+    at Socket.<anonymous> (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@libp2p/tcp/dist/src/socket-to-conn.js:47:19)
+    at Object.onceWrapper (node:events:632:28)
+    at Socket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:589:8)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7) {
+  code: 'ERR_SOCKET_READ_TIMEOUT',
+  props: {}
+}
+2024-05-24T18:26:24.962Z libp2p:yamux:error muxer abort reason=2 error=CodeError: Socket read timeout
+    at Socket.<anonymous> (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@libp2p/tcp/dist/src/socket-to-conn.js:47:19)
+    at Object.onceWrapper (node:events:632:28)
+    at Socket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:589:8)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7) {
+  code: 'ERR_SOCKET_READ_TIMEOUT',
+  props: {}
+}
+2024-05-24T18:26:24.962Z libp2p:yamux:outbound:3 abort with error CodeError: Socket read timeout
+    at Socket.<anonymous> (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@libp2p/tcp/dist/src/socket-to-conn.js:47:19)
+    at Object.onceWrapper (node:events:632:28)
+    at Socket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:589:8)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7) {
+  code: 'ERR_SOCKET_READ_TIMEOUT',
+  props: {}
+}
+2024-05-24T18:26:24.962Z libp2p:yamux:outbound:3 try to send reset to remote
+2024-05-24T18:26:24.963Z libp2p:yamux:inbound:6 abort with error CodeError: Socket read timeout
+    at Socket.<anonymous> (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@libp2p/tcp/dist/src/socket-to-conn.js:47:19)
+    at Object.onceWrapper (node:events:632:28)
+    at Socket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:589:8)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7) {
+  code: 'ERR_SOCKET_READ_TIMEOUT',
+  props: {}
+}
+2024-05-24T18:26:24.963Z libp2p:yamux:inbound:6 try to send reset to remote
+2024-05-24T18:26:24.963Z libp2p:yamux sending GoAway reason=InternalError
+2024-05-24T18:26:24.964Z libp2p:yamux:error ping error: CodeError: muxer closed locally
+    at EventTarget.closed (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:184:32)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at AbortController.abort (node:internal/abort_controller:393:5)
+    at YamuxMuxer._closeMuxer (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:277:30)
+    at YamuxMuxer.abort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:267:14)
+    at YamuxMuxer.sink (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:117:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0) {
+  code: 'ERR_MUXER_LOCAL_CLOSED',
+  props: {}
+}
+2024-05-24T18:26:24.964Z libp2p:yamux:error ping error: CodeError: muxer closed locally
+    at EventTarget.closed (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:184:32)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at AbortController.abort (node:internal/abort_controller:393:5)
+    at YamuxMuxer._closeMuxer (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:277:30)
+    at YamuxMuxer.abort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:267:14)
+    at YamuxMuxer.sink (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:117:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0) {
+  code: 'ERR_MUXER_LOCAL_CLOSED',
+  props: {}
+}
+2024-05-24T18:26:24.964Z libp2p:yamux:error ping error: CodeError: muxer closed locally
+    at EventTarget.closed (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:184:32)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at AbortController.abort (node:internal/abort_controller:393:5)
+    at YamuxMuxer._closeMuxer (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:277:30)
+    at YamuxMuxer.abort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:267:14)
+    at YamuxMuxer.sink (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:117:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0) {
+  code: 'ERR_MUXER_LOCAL_CLOSED',
+  props: {}
+}
+2024-05-24T18:26:24.964Z libp2p:yamux:error ping error: CodeError: muxer closed locally
+    at EventTarget.closed (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:184:32)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at AbortController.abort (node:internal/abort_controller:393:5)
+    at YamuxMuxer._closeMuxer (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:277:30)
+    at YamuxMuxer.abort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:267:14)
+    at YamuxMuxer.sink (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:117:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0) {
+  code: 'ERR_MUXER_LOCAL_CLOSED',
+  props: {}
+}
+2024-05-24T18:26:24.964Z libp2p:yamux:error ping error: CodeError: muxer closed locally
+    at EventTarget.closed (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:184:32)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at AbortController.abort (node:internal/abort_controller:393:5)
+    at YamuxMuxer._closeMuxer (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:277:30)
+    at YamuxMuxer.abort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:267:14)
+    at YamuxMuxer.sink (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:117:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0) {
+  code: 'ERR_MUXER_LOCAL_CLOSED',
+  props: {}
+}
+2024-05-24T18:26:24.964Z libp2p:yamux:error ping error: CodeError: muxer closed locally
+    at EventTarget.closed (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:184:32)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at AbortController.abort (node:internal/abort_controller:393:5)
+    at YamuxMuxer._closeMuxer (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:277:30)
+    at YamuxMuxer.abort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:267:14)
+    at YamuxMuxer.sink (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:117:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0) {
+  code: 'ERR_MUXER_LOCAL_CLOSED',
+  props: {}
+}
+2024-05-24T18:26:24.964Z libp2p:yamux:error ping error: CodeError: muxer closed locally
+    at EventTarget.closed (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:184:32)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at AbortController.abort (node:internal/abort_controller:393:5)
+    at YamuxMuxer._closeMuxer (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:277:30)
+    at YamuxMuxer.abort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:267:14)
+    at YamuxMuxer.sink (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:117:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0) {
+  code: 'ERR_MUXER_LOCAL_CLOSED',
+  props: {}
+}
+2024-05-24T18:26:24.964Z libp2p:yamux:error ping error: CodeError: muxer closed locally
+    at EventTarget.closed (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:184:32)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at AbortController.abort (node:internal/abort_controller:393:5)
+    at YamuxMuxer._closeMuxer (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:277:30)
+    at YamuxMuxer.abort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:267:14)
+    at YamuxMuxer.sink (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:117:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0) {
+  code: 'ERR_MUXER_LOCAL_CLOSED',
+  props: {}
+}
+2024-05-24T18:26:24.964Z libp2p:yamux:error ping error: CodeError: muxer closed locally
+    at EventTarget.closed (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:184:32)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at AbortController.abort (node:internal/abort_controller:393:5)
+    at YamuxMuxer._closeMuxer (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:277:30)
+    at YamuxMuxer.abort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:267:14)
+    at YamuxMuxer.sink (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:117:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0) {
+  code: 'ERR_MUXER_LOCAL_CLOSED',
+  props: {}
+}
+2024-05-24T18:26:24.964Z libp2p:yamux:error ping error: CodeError: muxer closed locally
+    at EventTarget.closed (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:184:32)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at AbortController.abort (node:internal/abort_controller:393:5)
+    at YamuxMuxer._closeMuxer (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:277:30)
+    at YamuxMuxer.abort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:267:14)
+    at YamuxMuxer.sink (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@chainsafe/libp2p-yamux/dist/src/muxer.js:117:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0) {
+  code: 'ERR_MUXER_LOCAL_CLOSED',
+  props: {}
+}
+2024-05-24T18:26:24.964Z libp2p:gossipsub:error CodeError: Socket read timeout
+    at Socket.<anonymous> (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@libp2p/tcp/dist/src/socket-to-conn.js:47:19)
+    at Object.onceWrapper (node:events:632:28)
+    at Socket.emit (node:events:518:28)
+    at Socket._onTimeout (node:net:589:8)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7)
+2024-05-24T18:26:24.964Z libp2p:gossipsub connection ended 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:26:24.965Z libp2p:gossipsub delete peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:26:24.966Z libp2p:tcp:socket 127.0.0.1:9990 socket close
+2024-05-24T18:26:24.966Z libp2p:connection:outbound:82i3wu1716574704948 closing connection to /ip4/127.0.0.1/tcp/9990/p2p/12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:26:24.967Z libp2p:tcp:socket The 127.0.0.1:9990 socket is destroyed
+2024-05-24T18:26:24.967Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:26:24.970Z canvas:gossiplog:[test-topic]:sync disconnected from 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:26:24.970Z libp2p:gossipsub connection ended 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:26:24.970Z libp2p:gossipsub connection ended 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:26:24.970Z libp2p:connection-manager:auto-dial selected 1/1 peers to dial
+2024-05-24T18:26:24.970Z libp2p:connection-manager:auto-dial connecting to a peerStore stored peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:26:24.970Z libp2p:connection-manager dial 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:26:24.971Z libp2p:connection-manager:dial-queue creating dial target for 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 []
+2024-05-24T18:26:24.971Z libp2p:connection-manager:dial-queue loading multiaddrs for 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:26:24.971Z libp2p:connection-manager:dial-queue loaded multiaddrs for 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 [ '/ip4/127.0.0.1/tcp/9990' ]
+2024-05-24T18:26:24.973Z libp2p:tcp dialing /ip4/127.0.0.1/tcp/9990/p2p/12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:26:29.972Z libp2p:tcp connection aborted /ip4/127.0.0.1/tcp/9990/p2p/12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:26:29.973Z libp2p:connection-manager:dial-queue:error dial failed to /ip4/127.0.0.1/tcp/9990/p2p/12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 AbortError: The operation was aborted
+    at EventTarget.onAbort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@libp2p/tcp/dist/src/index.js:124:22)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at AbortController.abort (node:internal/abort_controller:393:5)
+    at EventTarget.onAbort (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/any-signal/dist/src/index.js:8:20)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)
+    at EventTarget.dispatchEvent (node:internal/event_target:761:26)
+    at abortSignal (node:internal/abort_controller:371:10)
+    at Timeout._onTimeout (node:internal/abort_controller:128:7) {
+  code: 'ABORT_ERR',
+  type: 'aborted'
+}
+2024-05-24T18:26:29.975Z libp2p:connection-manager:dial-queue:error error in dial queue CodeError: The operation was aborted
+    at queue.add.peerId.peerId [as fn] (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/libp2p/dist/src/connection-manager/dial-queue.js:186:35)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:540:9)
+    at process.processTimers (node:internal/timers:514:7)
+    at async raceSignal (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/race-signal/dist/src/index.js:28:16)
+    at async Job.run (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@libp2p/utils/dist/src/queue/job.js:55:28) {
+  code: 'ERR_TIMEOUT',
+  props: {}
+}
+2024-05-24T18:26:29.975Z libp2p:connection-manager:auto-dial:error error during auto-dial CodeError: The operation was aborted
+    at queue.add.peerId.peerId [as fn] (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/libp2p/dist/src/connection-manager/dial-queue.js:186:35)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:540:9)
+    at process.processTimers (node:internal/timers:514:7)
+    at async raceSignal (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/race-signal/dist/src/index.js:28:16)
+    at async Job.run (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@libp2p/utils/dist/src/queue/job.js:55:28) {
+  code: 'ERR_TIMEOUT',
+  props: {}
+}
+2024-05-24T18:26:29.975Z libp2p:connection-manager:auto-dial:error could not connect to peerStore stored peer CodeError: The operation was aborted
+    at queue.add.peerId.peerId [as fn] (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/libp2p/dist/src/connection-manager/dial-queue.js:186:35)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:540:9)
+    at process.processTimers (node:internal/timers:514:7)
+    at async raceSignal (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/race-signal/dist/src/index.js:28:16)
+    at async Job.run (file:///home/chandler-dykes/Ryzyliant/GossipLogTests/node_modules/@libp2p/utils/dist/src/queue/job.js:55:28) {
+  code: 'ERR_TIMEOUT',
+  props: {}
+}
+2024-05-24T18:26:29.975Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:26:29.976Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:26:34.976Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:26:34.978Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:26:39.978Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:26:39.979Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:26:44.979Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:26:44.980Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:26:49.981Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:26:49.981Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:26:54.982Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:26:54.983Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:26:59.983Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:26:59.984Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:27:04.985Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:27:04.986Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:27:09.986Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:27:09.987Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:27:14.987Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:27:14.988Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:27:19.988Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:27:19.989Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:27:24.990Z libp2p:connection-manager:auto-dial not enough connections 0/1 - will dial peers to increase the number of connections
+2024-05-24T18:27:24.990Z libp2p:connection-manager:auto-dial selected 0/1 peers to dial
+2024-05-24T18:27:28.921Z libp2p:tcp:listener new inbound connection /ip4/127.0.0.1/tcp/40866
+2024-05-24T18:27:28.921Z libp2p:tcp:socket starting the inbound connection upgrade
+2024-05-24T18:27:28.922Z libp2p:tcp:socket handling inbound crypto protocol selection [ '/plaintext/2.0.0' ]
+2024-05-24T18:27:28.923Z libp2p:tcp:socket encrypting inbound connection using /plaintext/2.0.0
+2024-05-24T18:27:28.923Z libp2p:plaintext write pubkey exchange to peer undefined
+2024-05-24T18:27:28.925Z libp2p:plaintext plaintext key exchange completed successfully with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:28.925Z libp2p:tcp:socket inbound handling muxers [ '/yamux/1.0.0' ]
+2024-05-24T18:27:28.926Z libp2p:tcp:socket successfully upgraded inbound connection
+2024-05-24T18:27:28.928Z libp2p:connection-manager:connection-pruner checking max connections limit 1/2
+2024-05-24T18:27:28.928Z libp2p:connection:inbound:9rx3jm1716575248927 starting new stream for protocols [ '/canvas/id/1.0.0' ]
+2024-05-24T18:27:28.928Z libp2p:tcp:listener inbound connection upgraded /ip4/127.0.0.1/tcp/40866
+2024-05-24T18:27:28.931Z libp2p:connection:inbound:9rx3jm1716575248927 incoming stream opened on /canvas/id/1.0.0
+2024-05-24T18:27:28.936Z libp2p:yamux:outbound:2 selected protocol /canvas/id/1.0.0
+2024-05-24T18:27:28.938Z libp2p:identify identify completed for peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 and protocols [ '/canvas/id/1.0.0', '/gossiplog/sync/v1/test-topic', '/meshsub/1.0.0', '/meshsub/1.1.0' ]
+2024-05-24T18:27:28.938Z libp2p:identify our observed address is /ip4/127.0.0.1/tcp/9991/p2p/12D3KooWKUs484CWHXcMtkF389DZvbKEpesjwSQhTqcC3mVCojKZ
+2024-05-24T18:27:28.939Z libp2p:identify storing our observed address /ip4/127.0.0.1/tcp/9991/p2p/12D3KooWKUs484CWHXcMtkF389DZvbKEpesjwSQhTqcC3mVCojKZ
+2024-05-24T18:27:28.939Z libp2p:identify received identify from 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:28.939Z libp2p:identify received signedPeerRecord from 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:28.940Z libp2p:identify patching 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 with {
+  addresses: [
+    {
+      isCertified: true,
+      multiaddr: Multiaddr(/ip4/127.0.0.1/tcp/9990)
+    }
+  ],
+  protocols: [
+    '/canvas/id/1.0.0',
+    '/gossiplog/sync/v1/test-topic',
+    '/meshsub/1.0.0',
+    '/meshsub/1.1.0'
+  ],
+  publicKey: <Buffer 08 01 12 20 90 cb de b2 af 66 df 25 ba 40 9c e9 f2 da d0 43 78 b9 9b ab c6 d6 b0 1b a6 ed f9 4d 0a 2f 3f 3e>,
+  metadata: Map(1) {
+    'last-dial-failure' => Uint8Array(13) [
+      49, 55, 49, 54, 53, 55,
+      53, 49, 56, 57, 57, 55,
+      51
+    ]
+  },
+  peerRecordEnvelope: <Buffer 0a 24 08 01 12 20 90 cb de b2 af 66 df 25 ba 40 9c e9 f2 da d0 43 78 b9 9b ab c6 d6 b0 1b a6 ed f9 4d 0a 2f 3f 3e 12 02 03 01 1a 3b 0a 26 00 24 08 01 ... 119 more bytes>
+}
+2024-05-24T18:27:28.942Z libp2p:identify merging 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 metadata {
+  AgentVersion: Uint8Array(31) [
+    108, 105,  98, 112,  50, 112,  47,  49,
+     46,  54,  46,  48,  32,  85, 115, 101,
+    114,  65, 103, 101, 110, 116,  61, 118,
+     50,  48,  46,  49,  50,  46,  50
+  ],
+  ProtocolVersion: Uint8Array(12) [
+     99, 97, 110, 118, 97,
+    115, 47,  48,  46, 49,
+     46, 48
+  ]
+}
+2024-05-24T18:27:28.943Z canvas:gossiplog:[test-topic]:sync connected to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:28.943Z canvas:gossiplog:[test-topic]:sync last sync with 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 was 543s ago
+2024-05-24T18:27:28.943Z canvas:gossiplog:[test-topic]:sync waiting an initial 116ms
+2024-05-24T18:27:28.944Z libp2p:gossipsub new peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:28.944Z libp2p:connection:inbound:9rx3jm1716575248927 starting new stream for protocols [ '/meshsub/1.1.0', '/meshsub/1.0.0' ]
+2024-05-24T18:27:28.944Z libp2p:yamux:outbound:4 no abort signal was passed while trying to negotiate protocols [ '/meshsub/1.1.0', '/meshsub/1.0.0' ] falling back to default timeout
+2024-05-24T18:27:28.945Z libp2p:yamux frame for missing stream id=1
+2024-05-24T18:27:28.945Z libp2p:yamux frame for missing stream id=1
+2024-05-24T18:27:28.945Z libp2p:yamux frame for missing stream id=1
+2024-05-24T18:27:28.945Z libp2p:yamux frame for missing stream id=1
+2024-05-24T18:27:28.947Z libp2p:connection:inbound:9rx3jm1716575248927 incoming stream opened on /gossiplog/sync/v1/test-topic
+2024-05-24T18:27:28.947Z libp2p:connection:inbound:9rx3jm1716575248927 incoming stream opened on /meshsub/1.1.0
+2024-05-24T18:27:28.947Z canvas:gossiplog:[test-topic]:sync opened incoming stream 3 from peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:28.949Z libp2p:gossipsub create inbound stream 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:28.950Z libp2p:yamux:outbound:4 selected protocol /meshsub/1.1.0
+2024-05-24T18:27:28.951Z libp2p:gossipsub create outbound stream 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:28.951Z libp2p:gossipsub send subscriptions to 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:28.954Z libp2p:gossipsub subscription update from 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 topic canvas/test-topic
+2024-05-24T18:27:28.974Z canvas:gossiplog:[test-topic]:sync closed incoming stream 3 from peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:29.060Z canvas:gossiplog:[test-topic]:sync dialing 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25:
+2024-05-24T18:27:29.060Z canvas:gossiplog:[test-topic]:sync opening outgoing stream on connection 9rx3jm1716575248927
+2024-05-24T18:27:29.060Z libp2p:connection:inbound:9rx3jm1716575248927 starting new stream for protocols [ '/gossiplog/sync/v1/test-topic' ]
+2024-05-24T18:27:29.060Z libp2p:yamux:outbound:6 no abort signal was passed while trying to negotiate protocols [ '/gossiplog/sync/v1/test-topic' ] falling back to default timeout
+2024-05-24T18:27:29.063Z libp2p:yamux:outbound:6 selected protocol /gossiplog/sync/v1/test-topic
+2024-05-24T18:27:29.063Z canvas:gossiplog:[test-topic]:sync opened outgoing stream 6 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:29.064Z canvas:gossiplog:[test-topic]:sync initiating sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:29.067Z canvas:gossiplog:[test-topic]:driver source root: level 4, hash 2226b4a4fb0fa41938a2236562337564
+2024-05-24T18:27:29.067Z canvas:gossiplog:[test-topic]:driver target root: level 4, hash cd548e92684cda1bc6e5637c8ccb0c16
+2024-05-24T18:27:29.989Z libp2p:gossipsub HEARTBEAT: Add mesh link to 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25 in canvas/test-topic
+2024-05-24T18:27:32.124Z canvas:gossiplog:[test-topic]:sync closed outgoing stream 6 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:32.124Z canvas:gossiplog:[test-topic]:sync:error failed to sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25: CodeError: stream reset
+2024-05-24T18:27:32.124Z canvas:gossiplog:[test-topic]:sync waiting 371ms before trying again (1/5)
+2024-05-24T18:27:32.496Z canvas:gossiplog:[test-topic]:sync dialing 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25:
+2024-05-24T18:27:32.496Z canvas:gossiplog:[test-topic]:sync opening outgoing stream on connection 9rx3jm1716575248927
+2024-05-24T18:27:32.496Z libp2p:connection:inbound:9rx3jm1716575248927 starting new stream for protocols [ '/gossiplog/sync/v1/test-topic' ]
+2024-05-24T18:27:32.496Z libp2p:yamux:outbound:8 no abort signal was passed while trying to negotiate protocols [ '/gossiplog/sync/v1/test-topic' ] falling back to default timeout
+2024-05-24T18:27:32.498Z libp2p:yamux:outbound:8 selected protocol /gossiplog/sync/v1/test-topic
+2024-05-24T18:27:32.498Z canvas:gossiplog:[test-topic]:sync opened outgoing stream 8 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:32.499Z canvas:gossiplog:[test-topic]:sync initiating sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:32.499Z canvas:gossiplog:[test-topic]:driver source root: level 4, hash 2226b4a4fb0fa41938a2236562337564
+2024-05-24T18:27:32.499Z canvas:gossiplog:[test-topic]:driver target root: level 4, hash cd548e92684cda1bc6e5637c8ccb0c16
+2024-05-24T18:27:35.526Z canvas:gossiplog:[test-topic]:sync closed outgoing stream 8 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:35.526Z canvas:gossiplog:[test-topic]:sync:error failed to sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25: CodeError: stream reset
+2024-05-24T18:27:35.526Z canvas:gossiplog:[test-topic]:sync waiting 2430ms before trying again (2/5)
+2024-05-24T18:27:37.957Z canvas:gossiplog:[test-topic]:sync dialing 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25:
+2024-05-24T18:27:37.957Z canvas:gossiplog:[test-topic]:sync opening outgoing stream on connection 9rx3jm1716575248927
+2024-05-24T18:27:37.957Z libp2p:connection:inbound:9rx3jm1716575248927 starting new stream for protocols [ '/gossiplog/sync/v1/test-topic' ]
+2024-05-24T18:27:37.957Z libp2p:yamux:outbound:10 no abort signal was passed while trying to negotiate protocols [ '/gossiplog/sync/v1/test-topic' ] falling back to default timeout
+2024-05-24T18:27:37.959Z libp2p:yamux:outbound:10 selected protocol /gossiplog/sync/v1/test-topic
+2024-05-24T18:27:37.960Z canvas:gossiplog:[test-topic]:sync opened outgoing stream 10 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:37.961Z canvas:gossiplog:[test-topic]:sync initiating sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:37.962Z canvas:gossiplog:[test-topic]:driver source root: level 4, hash 2226b4a4fb0fa41938a2236562337564
+2024-05-24T18:27:37.962Z canvas:gossiplog:[test-topic]:driver target root: level 4, hash cd548e92684cda1bc6e5637c8ccb0c16
+2024-05-24T18:27:41.129Z canvas:gossiplog:[test-topic]:sync closed outgoing stream 10 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:41.129Z canvas:gossiplog:[test-topic]:sync:error failed to sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25: CodeError: stream reset
+2024-05-24T18:27:41.129Z canvas:gossiplog:[test-topic]:sync waiting 1393ms before trying again (3/5)
+2024-05-24T18:27:42.523Z canvas:gossiplog:[test-topic]:sync dialing 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25:
+2024-05-24T18:27:42.524Z canvas:gossiplog:[test-topic]:sync opening outgoing stream on connection 9rx3jm1716575248927
+2024-05-24T18:27:42.524Z libp2p:connection:inbound:9rx3jm1716575248927 starting new stream for protocols [ '/gossiplog/sync/v1/test-topic' ]
+2024-05-24T18:27:42.524Z libp2p:yamux:outbound:12 no abort signal was passed while trying to negotiate protocols [ '/gossiplog/sync/v1/test-topic' ] falling back to default timeout
+2024-05-24T18:27:42.526Z libp2p:yamux:outbound:12 selected protocol /gossiplog/sync/v1/test-topic
+2024-05-24T18:27:42.527Z canvas:gossiplog:[test-topic]:sync opened outgoing stream 12 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:42.527Z canvas:gossiplog:[test-topic]:sync initiating sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:42.528Z canvas:gossiplog:[test-topic]:driver source root: level 4, hash 2226b4a4fb0fa41938a2236562337564
+2024-05-24T18:27:42.528Z canvas:gossiplog:[test-topic]:driver target root: level 4, hash cd548e92684cda1bc6e5637c8ccb0c16
+2024-05-24T18:27:45.601Z canvas:gossiplog:[test-topic]:sync closed outgoing stream 12 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:45.601Z canvas:gossiplog:[test-topic]:sync:error failed to sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25: CodeError: stream reset
+2024-05-24T18:27:45.601Z canvas:gossiplog:[test-topic]:sync waiting 574ms before trying again (4/5)
+2024-05-24T18:27:46.175Z canvas:gossiplog:[test-topic]:sync dialing 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25:
+2024-05-24T18:27:46.175Z canvas:gossiplog:[test-topic]:sync opening outgoing stream on connection 9rx3jm1716575248927
+2024-05-24T18:27:46.175Z libp2p:connection:inbound:9rx3jm1716575248927 starting new stream for protocols [ '/gossiplog/sync/v1/test-topic' ]
+2024-05-24T18:27:46.176Z libp2p:yamux:outbound:14 no abort signal was passed while trying to negotiate protocols [ '/gossiplog/sync/v1/test-topic' ] falling back to default timeout
+2024-05-24T18:27:46.177Z libp2p:yamux:outbound:14 selected protocol /gossiplog/sync/v1/test-topic
+2024-05-24T18:27:46.178Z canvas:gossiplog:[test-topic]:sync opened outgoing stream 14 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:46.178Z canvas:gossiplog:[test-topic]:sync initiating sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:46.179Z canvas:gossiplog:[test-topic]:driver source root: level 4, hash 2226b4a4fb0fa41938a2236562337564
+2024-05-24T18:27:46.179Z canvas:gossiplog:[test-topic]:driver target root: level 4, hash cd548e92684cda1bc6e5637c8ccb0c16
+2024-05-24T18:27:49.245Z canvas:gossiplog:[test-topic]:sync closed outgoing stream 14 to peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25
+2024-05-24T18:27:49.246Z canvas:gossiplog:[test-topic]:sync:error failed to sync with peer 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25: CodeError: stream reset
+2024-05-24T18:27:49.246Z canvas:gossiplog:[test-topic]:sync waiting 246ms before trying again (5/5)
+2024-05-24T18:27:49.492Z canvas:gossiplog:[test-topic]:sync:error sync failed: 'exceeded sync retry limit: 12D3KooWKZbBSiERPWsio8XLfbaeAgo23PLqZRF7wo9LYtMjiX25'

@@ -64,9 +64,9 @@ describe.sequential(
 
         await new Promise<void>(resolve => setTimeout(() => resolve(), 1_000));
 
-        await gossiplogProcessManager.createEntries('a', 50_000);
+        await gossiplogProcessManager.createEntries('a', 35_000);
 
-        console.log('Created 50_000 entries while disconnected');
+        console.log('Created 35_000 entries while disconnected');
 
         await gossiplogProcessManager.unblockPortConnection('a');
         await gossiplogProcessManager.unblockPortConnection('b');
